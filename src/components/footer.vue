@@ -57,10 +57,8 @@ export default {
         screenHeight(val) {
         if(this.originHeight > val + 100){
             this.showFooter=false
-            this.$emit('disPlay')
         }else{
             this.showFooter=true
-            this.$emit('disPlay')
         }
     }
     },
