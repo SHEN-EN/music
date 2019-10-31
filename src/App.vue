@@ -14,7 +14,7 @@ html body{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: PingFangSC;
+  background: #ddf2e9;
 }
 .footer a{
   text-decoration: none;

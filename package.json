@@ -11,10 +11,13 @@
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "mockjs": "^1.0.1-beta3",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-masonry": "^0.11.8",
     "vue-router": "^3.0.3",
+    "vue-touch": "^2.0.0-beta.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

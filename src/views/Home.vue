@@ -11,7 +11,7 @@
             <input type="text" class="header_seach_input" :placeholder="inputArr" >
             <span class="header_toseach">搜索</span>
         </div>
-         <div class="banner">
+         <div class="banner" @click="toActivity">
           <nut-swiper
           :paginationVisible="true"
             direction="horizontal"
@@ -30,15 +30,15 @@
     <div class="advertisement">
         
     </div>
-    <div class="recommend">
+    <div class="recommend_title">
         <span class="recommend_today">今日推荐</span>
-        <span class="recommend_more">更多</span>
-        <nut-scroller>
-          <div slot="list" class="nut-hor-list-item" v-for="(item,index) in todayList" :key="index">
-              <img :src="item.img" alt="" class="recommend_img">
-              <div class="recommend_title">{{item.title}}</div>
-          </div>
-      </nut-scroller>
+        <span class="recommend_more">查看更多</span>
+    </div>
+    <div class="recommend">
+        <div class="recommend_content"  v-for="(item,index) in todayList" :key="index">
+            <img :src="item.img" alt="" class="recommend_img">
+            <div class="recommend_title">{{item.title}}</div>
+        </div>
     </div>
     <div class="shopList" v-masonry transition-duration="0.3s" item-selector=".item">
       <div class="shopList_top">
@@ -52,6 +52,9 @@
           <div class="shopList_content_price">{{item.price|priceFilter}}</div><div class="shopList_content_discountPrice">{{item.orderPrice|priceFilter}}</div>
           <img src="../assets/tobuy.png" alt="" class="shopList_content_tobuy">
       </div>
+    </div>
+    <div class="bottom-tips" v-show="bottom">
+        <span class="tips-txt">哎呀，这里是底部了啦</span>
     </div>
     <nut-backtop :distance="400" :bottom="156.5" :right="8"></nut-backtop>
     <footer-curry></footer-curry>
@@ -103,6 +106,7 @@ export default {
           }
         ],//选项卡list
         type:'',
+        bottom:false
     }
   },
   methods:{
@@ -130,6 +134,8 @@ export default {
                 });
                 if (result.data.query.length==0) {
                   this.$toast.text('数据加载完毕');
+                  this.bottom=true
+                  window.removeEventListener('scroll',this.loading)
                 }else{
                   this.shopList.push(...result.data.query)
                 }
@@ -185,6 +191,7 @@ export default {
           this.inputArr=this.inputArr=='新鲜娃娃菜'?'脆脆鲨饼干巧克力味':'新鲜娃娃菜';
       },
       changeTab(index,type){
+          this.bottom=false
           this.tabLine=index;
           this.pageNo=0;
           this.shopList='' ;
@@ -201,28 +208,34 @@ export default {
         }).catch((err) => {
           
         });
+      },
+      toActivity(){
+        this.$router.push('/activity')
       }
   },
   created () {
     this.mockList();
     this.mockShopList();
     this.todayLoading()
-    // setInterval(() => {
-    //   this.changeInputValue();
-    // }, 3000);
+    setInterval(() => {
+      this.changeInputValue();
+    }, 3000);
   },
   mounted() {
-    window.addEventListener('scroll',this.loading)
+  //  window.addEventListener('scroll',this.loading)
   },
   beforeDestroy(){
     window.removeEventListener('scroll',this.loading)
-  }
+  },
 }
 </script>
 <style>
+
 .nut-backtop-main{
-  width: .38rem;
-  height: .38rem;
+  width: .35rem;
+  height: .35rem;
+  background: #22d158 url('../assets/top.png') no-repeat center;
+  background-size: 20px 20px;
 }
 .vue-skeleton-column{
   background: #fff;
@@ -232,25 +245,7 @@ export default {
   height: 94%;
   width: 100%;
 }
-.nut-hor-scroll .recommend_img{
-  width: 1rem;
-  height: 1rem;
-  margin-top: .1rem;
-}
-.nut-hor-scroll .recommend_title{
-  font-size: .1rem;
-  color: #282828;
-  width: .7rem;
-  text-align: center;
-  margin-top: -.18rem;
-  margin-left: .15rem;
-} 
-.nut-scroller{
-  width: 100%;
-}
-.nut-hor-list-item{
-  margin-left: .1rem;
-}
+
 .nut-swiper{
     position: relative;
     overflow: hidden;
@@ -259,9 +254,12 @@ export default {
     width: 101%;
 }
 </style>
+@import url('../common/font/font.css')
+
 <style scoped>
 .home{
   background: #fff;
+  /* font-family: PingFangSC; */
 }
 .header{
   width: 100%;
@@ -270,7 +268,7 @@ export default {
     width: .12rem;
     height: .15rem;
     float: left;
-    margin-top: .25rem;
+    margin-top: .24rem;
     margin-left: .1rem
 }
 .header .header_local{
@@ -280,10 +278,10 @@ export default {
   margin-left: .04rem;
 }
 .header .header_select{
-  width: .11rem;
-  height: .07rem;
+  width: .12rem;
+  height: .06rem;
   float: left;
-  margin-top: .28rem;
+  margin-top: .3rem;
   margin-left: .08rem;
 }
 .header .header_code{
@@ -380,7 +378,7 @@ export default {
 }
 .advertisement{
   width: 100%;
-  height:.73rem;
+  height:.98rem;
   background: #c9f2f0;
   background: url('../assets/banner.png') no-repeat;
   background-size:100%;
@@ -388,9 +386,13 @@ export default {
 .recommend{
     height: 1.69rem;
     width: 100%;
-    padding-bottom: .33rem;
+    display: -webkit-box;
+    overflow-y: scroll;
 }
-.recommend .recommend_today{
+.recommend_title{
+  overflow: hidden;
+}
+.recommend_title .recommend_today{
     font-size: .13rem;
     color: #000;
     font-weight: bolder;
@@ -398,13 +400,27 @@ export default {
     margin-top: .27rem;
     margin-left: .1rem;
 }
-.recommend .recommend_more{
+.recommend_title .recommend_more{
   font-size: .09rem;
   color:#282828;
   float: right;
   margin-top: .3rem;
   margin-right: .11rem;
 }
+.recommend .recommend_content .recommend_img{
+  width: 1rem;
+  height: 1rem;
+  margin-top: .1rem;
+}
+
+.recommend .recommend_content .recommend_title{
+  font-size: .1rem;
+  color: #282828;
+  width: .7rem;
+  text-align: center;
+  margin-top: -.18rem;
+  margin-left: .15rem;
+} 
 .shopList{
   background: #f2f2f2;
 }
@@ -420,6 +436,8 @@ export default {
   margin: .15rem .3rem 0 .1rem;
   position: relative;
   overflow: hidden;
+  width:auto;
+  line-height: .19rem;
 }
 .shopList .shopList_top .shopList_top_change{
   font-size: .09rem;
@@ -489,7 +507,6 @@ export default {
 .shopList .shopList_content .shopList_content_price{
   font-size: .13rem;
   color: #f05e25;
-  width: 24%;
   float: left;
   margin-left: .1rem;
   margin-top: .05rem;
@@ -508,21 +525,51 @@ export default {
     height: .185rem;
     margin-top: .05rem
 }
-@keyframes  turnAround{
-  0%{ transform:rotate(0deg); }
-  100%{ transform:rotate(360deg); }
-}
-.toturnAround{
-  animation: turnAround 1.5s  infinite linear;
-}
-.title_bottoom::after{
-    content: '';
-    position: absolute;
-    width: .18rem;
-    height: .02rem;
+.shopList .shopList_top .title_bottoom{
+    width: .43rem;
+    height: .2rem;
     background: #17b447;
-    top: .2rem;
-    left: .04rem;
     overflow: hidden;
+    color: #fff;
+    text-align: center;
+    transition: all .5s
+}
+.bottom-tips{
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    color: #bfbaba;
+    font-size: 12px;
+}
+.bottom-tips .tips-txt{
+  position: relative;
+  bottom: .6rem;
+}
+.bottom-tips .tips-txt::before{
+    content: "";
+    height: 1px;
+    width: 20px;
+    background-color: #bfbaba;
+    position: absolute;
+    top: 50%;
+    margin-top: -.5px;
+    left: -.25rem;
+}
+.bottom-tips .tips-txt::after{
+    content: "";
+    height: 1px;
+    width: 20px;
+    background-color: #bfbaba;
+    position: absolute;
+    top: 50%;
+    margin-top: -.5px;
+    right: -.25rem;
 }
 </style>

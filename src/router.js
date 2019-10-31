@@ -7,9 +7,24 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: () => import( './views/Home.vue')
-    }
+    },
+    {
+      path:'/activity',
+      name:'activity',
+      component:()=>import('./views/activity.vue')
+    },
+    {
+      path: '/index.html',
+      name: 'index',
+      redirect: '/',
+    },
+    {
+      path:'/',
+      name:'guide',
+      component:()=>import('./views/guide.vue')
+    },
   ]
 })

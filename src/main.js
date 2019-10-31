@@ -6,6 +6,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import * as filter from './fillter/fillter';
 import NutUI from '@nutui/nutui';
+import VueTouch from 'vue-touch'
+Vue.use(VueTouch, {name: 'v-touch'})
 import '@nutui/nutui/dist/nutui.css';
 import {VueMasonryPlugin} from 'vue-masonry';
 Vue.use(VueMasonryPlugin)
@@ -19,7 +21,15 @@ axios.interceptors.request.use(
 
     return config
   }
-)
+);
+router.beforeEach((to, from, next) => {
+  let ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) != "micromessenger") {
+       alert("请使用微信游览器打开");
+   }else{
+     next()
+   }
+})
 new Vue({
   router,
   store,

@@ -1,0 +1,20 @@
+
+
+@font-face {  
+    font-family: 'AdobeHeitiStd';  
+    src: url('../font/AdobeHeitiStd-Regular.otf');  
+    font-weight: normal;  
+    font-style: normal;  
+}
+@font-face {  
+    font-family: 'PingFangSC';  
+    src: url('../font/de45d7136178b776ee438d73cb0b52e2.ttf');  
+    font-weight: normal;  
+    font-style: normal;  
+}
+@font-face {  
+    font-family: 'DFPYuanW5';  
+    src: url('../font/DFPYuanW5-GB.ttf');  
+    font-weight: normal;  
+    font-style: normal;  
+}

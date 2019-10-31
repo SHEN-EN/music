@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" viewport-fit="cover" >
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>isuibaby</title>
     <style>
@@ -12,6 +12,10 @@
             margin: 0;
             padding: 0;
             background: #efefef;
+            padding-top: constant(safe-area-inset-top);           
+            padding-left: constant(safe-area-inset-left);                   
+            padding-right: constant(safe-area-inset-right);            
+            padding-bottom: constant(safe-area-inset-bottom);
         }
         ul{
           padding: 0;
