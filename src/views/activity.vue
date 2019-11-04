@@ -178,7 +178,7 @@ top = .44rem
             position absolute
             top .25rem
             color #fff
-            left .5rem
+            left .51rem
         img 
             width .31rem
             height .35rem
@@ -203,7 +203,7 @@ top = .44rem
             height .28rem
 
         .activity_content_hot_content
-            background #daefe6
+            background #cdefe0
             width 3.57rem
             height 1.42rem
             position relative
@@ -239,9 +239,9 @@ top = .44rem
                 text-overflow: ellipsis
                 white-space: nowrap
                 position absolute
-                top 0.6rem
+                top 0.65rem
                 left 47%
-                font-weight bolder
+                font-weight bold
 
             .activity_content_hot_content_price
                 color #f05e25
@@ -269,8 +269,9 @@ top = .44rem
                 bottom .38rem
                 right .21rem
                 line-height .15rem
-                display: flex;
-                justify-content: center;
+                display flex
+                justify-content center
+                align-items center
 
     .activity_content_recommend
         background url('../assets/bg.png') no-repeat
@@ -319,8 +320,10 @@ top = .44rem
             height .18rem
             background #364d43
             color #fff
-            text-align center
             float left
             margin-top .2rem
+            display flex
+            justify-content center
+            align-items center
 
 </style>

@@ -13,9 +13,9 @@
         </div>
          <div class="banner" @click="toActivity">
           <nut-swiper
-          :paginationVisible="true"
             direction="horizontal"
            :loop="true"
+           :lazyLoad="true"
            :autoPlay="3000">
            <img src="../assets/banns.png" alt="">
         </nut-swiper>
@@ -128,19 +128,15 @@ export default {
         this.axios.post('/api/shopList.do',params).then((result) => {
           if (result.data.resultCode==200) {
               if (loading) { //下拉加载 
-                this.$toast.loading('加载中...',{ 
-                    duration:300,
-                    cover:false
-                });
+                this.loading.hide();
                 if (result.data.query.length==0) {
+                  window.removeEventListener('scroll',this.loadingMore)
                   this.$toast.text('数据加载完毕');
                   this.bottom=true
-                  window.removeEventListener('scroll',this.loading)
                 }else{
                   this.shopList.push(...result.data.query)
                 }
               }else{ //切换选项卡加载 &&初始加载
-                window.addEventListener('scroll',this.loading)
                 this.shopList=result.data.query;
               }
               this.$nextTick(()=>{
@@ -152,54 +148,29 @@ export default {
           
         });
       },
-      waterFall(list,width){
-        let row=2;
-        let rowHeight=[];
-        let index=0;
-        let margin=10
-        for (let i = 0; i < list.length; i++) {
-          list[i].style.position='absolute'
-            if(i<2){
-                list[i].style.top=`${(list[i].offsetTop)}px`;
-                list[i].style.left=`${((list[i].clientWidth+margin)*i)}px`;
-
-                rowHeight.push(list[i].offsetHeight)
-            }else{
-                  let MinH=Math.min.apply(null,rowHeight);
-
-                  for (const key in rowHeight) {
-                    if (rowHeight[key]===MinH) {
-                        index=key;
-                    }
-                  }
-                  list[i].style.top=`${(list[index].offsetTop+MinH)}px`;
-                  list[i].style.left=`${(((list[0].offsetWidth+margin)*index))}px`;
-                  rowHeight[index]+=list[i].offsetHeight+margin
-            }  
-        }
-      },
-      loading(){
+      loadingMore(){
          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight;
           if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
+              this.loading = this.$toast.loading();
               this.pageNo=this.pageNo+6
-              this.mockShopList(true,this.type!=''?this.type:'')   
+              this.mockShopList(true,this.type!=''?this.type:'')    
             }
       },
       changeInputValue(){
           this.inputArr=this.inputArr=='新鲜娃娃菜'?'脆脆鲨饼干巧克力味':'新鲜娃娃菜';
       },
-      changeTab(index,type){
+      changeTab(index,type){ //切换选项卡
           this.bottom=false
           this.tabLine=index;
-          this.pageNo=0;
-          this.shopList='' ;
-          this.type=type
-          window.removeEventListener('scroll',this.loading)
+          this.pageNo=0; //页码初始化
+          this.shopList='' ; //清空LIST
+          this.type=type;//获取type传后端
+          window.addEventListener('scroll',this.loadingMore)
           this.mockShopList(false,type)
       },
-      todayLoading(){
+      todayLoading(){  //数据mock
         let params={
           createTime:+new Date()
         }
@@ -214,18 +185,18 @@ export default {
       }
   },
   created () {
-    this.mockList();
-    this.mockShopList();
-    this.todayLoading()
+    this.mockList();//mock数据加载
+    this.mockShopList(); //真实数据加载
+    this.todayLoading(); //mock数据加载
     setInterval(() => {
       this.changeInputValue();
     }, 3000);
   },
   mounted() {
-  //  window.addEventListener('scroll',this.loading)
+    window.addEventListener('scroll',this.loadingMore)
   },
   beforeDestroy(){
-    window.removeEventListener('scroll',this.loading)
+    window.removeEventListener('scroll',this.loadingMore)
   },
 }
 </script>
@@ -253,9 +224,10 @@ export default {
     border-radius: .1rem;
     width: 101%;
 }
+.nut-swiper.horizontal .nut-swiper-pagination{
+  bottom: -.1rem
+}
 </style>
-@import url('../common/font/font.css')
-
 <style scoped>
 .home{
   background: #fff;
@@ -384,10 +356,11 @@ export default {
   background-size:100%;
 }
 .recommend{
-    height: 1.69rem;
+    height: 1.6rem;
     width: 100%;
     display: -webkit-box;
-    overflow-y: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 .recommend_title{
   overflow: hidden;

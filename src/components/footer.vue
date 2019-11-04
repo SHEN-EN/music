@@ -1,16 +1,16 @@
 <template>
     <div class="footer" v-show="showFooter">
        <div class="footer-img">
-           <router-link to="/"  active-class="footer-active" exact>
-           <img src="../assets/home.png">
-           <!-- <img src="../assets/home_after.png" alt="" v-if="this.$route.path=='/'"> -->
+           <router-link to="/Home"  active-class="footer-active" exact>
+           <img src="../assets/home.png"  v-if="this.$route.path!='/Home'">
+           <img src="../assets/home_after.png" alt="" v-if="this.$route.path=='/Home'">
            <span>首页</span>
            </router-link>
        </div>
        <div class="footer-img">
-           <router-link to="/shop" active-class="footer-active">
-           <img src="../assets/find.png" alt="" v-if="this.$route.path!='/shop'">
-           <!-- <img src="../assets/shop_after.png"  alt="" v-if="this.$route.path=='/shop'"> -->
+           <router-link to="/finds" active-class="footer-active">
+           <img src="../assets/find.png" alt="" v-if="this.$route.path!='/find'">
+           <img src="../assets/find_after.png"  alt="" v-if="this.$route.path=='/find'">
            <span>发现</span>
            </router-link>
        </div>

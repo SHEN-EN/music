@@ -28,7 +28,7 @@
             <div :class="{'select':leftValue==0}"  :style="leftValue==75?'position:absolute;transition:all .5s;':''"></div>
             <div :class="{'select':leftValue==25}" :style="leftValue==75?'position:absolute;transition:all .7s;':''"></div>
             <div :class="{'select':leftValue==50}" :style="leftValue==75?'position:absolute;transition:all .9s;':''"></div>
-            <div @click="toHome" :class="{'select':leftValue==75}" :style="leftValue==75?'display: flex;justify-content: center;position:absolute;transition:all 1.1s;width:.9rem;height:.25rem;background:#fff;border:solid 1px #42c269;font-size:.14rem':''">{{leftValue==75?'立即体验':''}}</div>
+            <div @click="toHome" :class="{'select':leftValue==75}" :style="leftValue==75?'display: flex;justify-content: center;position:absolute;transition:all 1.1s;width:.9rem;height:.25rem;background:#fff;border:solid 1px #42c269;font-size:.14rem;align-items:center;':''">{{leftValue==75?'立即体验':''}}</div>
         </div>
     </div>
 </template>
@@ -177,7 +177,7 @@ export default {
             height: 38%;
         .guide_content_fouth_title
             @extend .guide_content_first_title
-            width 36%
+            width 40%
             height 9%
             top 1.3rem
             

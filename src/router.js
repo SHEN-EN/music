@@ -26,5 +26,10 @@ export default new Router({
       name:'guide',
       component:()=>import('./views/guide.vue')
     },
+    {
+      path:'/find',
+      name:'find',
+      component:()=>import('./views/find.vue')
+    },
   ]
 })
