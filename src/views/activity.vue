@@ -13,22 +13,22 @@
             <div class="activity_content_coupon">
                 <div class="activity_content_coupon_type">
                     <span class="activity_content_coupon_type_money">50</span>
-                    <span class="activity_content_coupon_type_rule">元优惠卷 <br>满29元使用</span>
-                    <img src="../assets/to_get.png" alt="">
+                    <span class="activity_content_coupon_type_rule"><span>元优惠卷</span><br>满80元使用</span>
+                    <img src="../assets/to_get.png" alt="" @click="toget">
                 </div>
                  <div class="activity_content_coupon_type">
                     <span class="activity_content_coupon_type_money">70</span>
-                    <span class="activity_content_coupon_type_rule">元优惠卷 <br>满49元使用</span>
+                    <span class="activity_content_coupon_type_rule"><span>元优惠卷</span><br>满99元使用</span>
                     <img src="../assets/to_get.png" alt="">
                 </div>
                  <div class="activity_content_coupon_type second">
-                    <span class="activity_content_coupon_type_money">80</span>
-                    <span class="activity_content_coupon_type_rule">元优惠卷 <br>满59元使用</span>
+                    <span class="activity_content_coupon_type_money">60</span>
+                    <span class="activity_content_coupon_type_rule"><span>元优惠卷</span><br>满85元使用</span>
                     <img src="../assets/to_get.png" alt="">
                 </div>
                  <div class="activity_content_coupon_type second">
-                    <span class="activity_content_coupon_type_money">90</span>
-                    <span class="activity_content_coupon_type_rule">元优惠卷 <br>满69元使用</span>
+                    <span class="activity_content_coupon_type_money">40</span>
+                    <span class="activity_content_coupon_type_rule"><span>元优惠卷</span><br>满69元使用</span>
                     <img src="../assets/to_get.png" alt="">
                 </div>
             </div>
@@ -39,10 +39,10 @@
                 <div class="activity_content_hot_content" v-for="(item,index) in 2" :key="index" :style="index==1?'float:right':''">
                     <img src="../assets/decorate.png" alt="" class="activity_content_hot_content_img" :style="index==1?'transform: rotate(270deg);left:88%':''">
                     <img src="../assets/a.png" alt="" class="activity_content_hot_content_shop">
-                    <div class="activity_content_hot_content_name">整箱15瓶 元气森林 橘味苏打气泡水480ml</div>
-                    <div class="activity_content_hot_content_secondName">好喝又美味</div>
-                    <div class="activity_content_hot_content_price">￥49.9</div>
-                    <div class="activity_content_hot_content_Oldprice">￥20.80</div>
+                    <div class="activity_content_hot_content_name">精选牛肉片150g</div>
+                    <div class="activity_content_hot_content_secondName">源自草饲牛的牛腿肉 嫩又香甜</div>
+                    <div class="activity_content_hot_content_price">￥38.8</div>
+                    <div class="activity_content_hot_content_Oldprice">￥42.00</div>
                     <div class="activity_content_hot_content_tobuy">立即抢购</div>
                 </div>
             </div>
@@ -50,10 +50,40 @@
                 <div class="activity_content_recommend_title">
                     <img src="../assets/recommend.png" alt="">                    
                 </div>
-                <div class="activity_content_recommend_content" v-for="(item,index) in 8" :key="index">
+                <div class="activity_content_recommend_content">
                     <img src="../assets/ccc.png" alt="">
+                    <div class="activity_content_recommend_content_title">蒙牛纯甄常温酸牛奶礼盒 200g*24盒</div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>49.9</span></div>
+                    <div class="activity_content_recommend_content_tobuy">立即抢购</div>
+                </div>
+                <div class="activity_content_recommend_content">
+                    <img src="../assets/s.png" alt="">
+                    <div class="activity_content_recommend_content_title">好欢螺螺蛳粉柳州特产美 食方便面速食300g*5袋</div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>18.8</span></div>
+                    <div class="activity_content_recommend_content_tobuy">立即抢购</div>
+                </div>
+                 <div class="activity_content_recommend_content">
+                    <img src="../assets/i.png" alt="">
+                    <div class="activity_content_recommend_content_title">超干牛肉干175g原味内 蒙古特产手撕风干牛肉</div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>35.5</span></div>
+                    <div class="activity_content_recommend_content_tobuy">立即抢购</div>
+                </div>
+                 <div class="activity_content_recommend_content">
+                    <img src="../assets/o.png" alt="">
+                    <div class="activity_content_recommend_content_title">两口子老婆饼400G美食 特产糕点网红零食</div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>57.5</span></div>
+                    <div class="activity_content_recommend_content_tobuy">立即抢购</div>
+                </div>
+                 <div class="activity_content_recommend_content">
+                    <img src="../assets/pu.png" alt="">
                     <div class="activity_content_recommend_content_title">香印葡萄1盒*500克</div>
-                    <div class="activity_content_recommend_content_price">特惠价￥<span>29</span></div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>16.5</span></div>
+                    <div class="activity_content_recommend_content_tobuy">立即抢购</div>
+                </div>
+                 <div class="activity_content_recommend_content">
+                    <img src="../assets/niu.png" alt="">
+                    <div class="activity_content_recommend_content_title">精选牛肉片150g</div>
+                    <div class="activity_content_recommend_content_price">特惠价￥<span>38.8</span></div>
                     <div class="activity_content_recommend_content_tobuy">立即抢购</div>
                 </div>
             </div>
@@ -64,14 +94,20 @@
 export default {
     data () {
         return {
-            
+            hotList:[]
         }
     },
     methods: {
        goBack(){
            this.$router.push('/Home')
+       },
+       toget(){
+            
        }
-    }
+    },
+    created() {
+        
+    },
 }
 </script>
 <style lang="stylus" scoped>
@@ -179,11 +215,14 @@ top = .44rem
             top .25rem
             color #fff
             left .51rem
+
+            span 
+                font-size .1109rem
         img 
             width .31rem
             height .35rem
             position  absolute
-            right .2rem
+            right .17rem
             top .18rem
 
     .activity_content_hot
@@ -198,7 +237,7 @@ top = .44rem
 
         .activity_content_hot_title img
 
-            transform translate(0,-.37rem)
+            transform translate(0,-.39rem)
             width 1.17rem
             height .28rem
 
@@ -274,17 +313,20 @@ top = .44rem
                 align-items center
 
     .activity_content_recommend
-        background url('../assets/bg.png') no-repeat
-        background-size 50%
         text-align center
-        background-position 50% .16rem
         margin-top .42rem
         overflow hidden
 
+        .activity_content_recommend_title
+            background url('../assets/bg.png') no-repeat
+            background-size 50%
+            background-position 50% .16rem
+
     .activity_content_recommend_title img
-        transform translate(0,-.37rem)
+        transform translate(0,-.39rem)
         width 1.17rem
         height .28rem
+        display inline-block
 
     .activity_content_recommend_content 
             width  1.87rem
@@ -298,7 +340,7 @@ top = .44rem
             font-family PingFangSC
             font-weight bolder
             color #364d43
-            margin-top -.2rem
+            margin-top -.1rem
 
         .activity_content_recommend_content_price
             color #f05e25
@@ -306,7 +348,7 @@ top = .44rem
             font-family PingFangSC
             font-weight bolder
             float left
-            margin .22rem .12rem 0 .35rem
+            margin .12rem .12rem 0 .35rem
 
             span 
                 @extend .activity_content_recommend_content_price
@@ -321,7 +363,7 @@ top = .44rem
             background #364d43
             color #fff
             float left
-            margin-top .2rem
+            margin-top .1rem
             display flex
             justify-content center
             align-items center

@@ -25,7 +25,7 @@ axios.interceptors.request.use(
 router.beforeEach((to, from, next) => {
   let ua = navigator.userAgent.toLowerCase();
   if (ua.match(/MicroMessenger/i) != "micromessenger") {
-       alert("请使用微信浏览器打开");
+    next()
    }else{
      next()
    }

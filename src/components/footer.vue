@@ -8,7 +8,7 @@
            </router-link>
        </div>
        <div class="footer-img">
-           <router-link to="/finds" active-class="footer-active">
+           <router-link to="/find" active-class="footer-active">
            <img src="../assets/find.png" alt="" v-if="this.$route.path!='/find'">
            <img src="../assets/find_after.png"  alt="" v-if="this.$route.path=='/find'">
            <span>发现</span>
@@ -17,14 +17,14 @@
          <div class="footer-img">
            <router-link to="/shop" active-class="footer-active">
            <img src="../assets/shops.png" alt="" v-if="this.$route.path!='/shop'" style="margin-right:.03rem">
-           <!-- <img src="../assets/shop_after.png"  alt="" v-if="this.$route.path=='/shop'"> -->
+           <img src="../assets/shop_after.png"  alt="" v-if="this.$route.path=='/shop'" style="margin-right:.03rem">
            <span>购物车</span>
            </router-link>
        </div>
        <div class="footer-img">
            <router-link to="/my" active-class="footer-active">
            <img src="../assets/my.png" alt="" v-if="this.$route.path!='/my'">
-           <!-- <img src="../assets/my_after.png" alt="" v-if="this.$route.path=='/my'"> -->
+           <img src="../assets/my_after.png" alt="" v-if="this.$route.path=='/my'">
            <span>我的</span>
            </router-link>
         </div>        

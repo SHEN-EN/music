@@ -31,5 +31,15 @@ export default new Router({
       name:'find',
       component:()=>import('./views/find.vue')
     },
+    {
+      path:'/shop',
+      name:'shop',
+      component:()=>import('./views/shop.vue')
+    },
+    {
+      path:'/my',
+      name:'my',
+      component:()=>import('./views/my.vue')
+    },
   ]
 })

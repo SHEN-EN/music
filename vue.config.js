@@ -1,7 +1,8 @@
 // vue.config.js
 module.exports = {
-	publicPath: './',
-	outputDir: 'dist',
+    assetsDir:'./',
+    publicPath: './',
+    outputDir: 'dist',
     devServer: {
         proxy: {
             '/api': {

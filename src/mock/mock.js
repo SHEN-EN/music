@@ -46,9 +46,8 @@ Mock.mock('/mock/selectTopCatalogWithoutToken.do', 'post', (data)=>{
     }
 })
 Mock.mock('/mock/shopList.do', 'post', (data)=>{
-    let list=[]
-    if (JSON.parse(data.body).pageNo==0) {
-        list=[
+    return{
+        list:[
             {
                 img:require('../assets/shop.png'),
                 title:'香印葡萄1盒*500克',
@@ -91,10 +90,6 @@ Mock.mock('/mock/shopList.do', 'post', (data)=>{
                 price:'3000',
                 orderPrice:'4800'
             },
-            ]
-    }
-    if (JSON.parse(data.body).pageNo==1) {
-        list=[
             {
                 img:require('../assets/j.jpg'),
                 title:'格桑泉饮用天然水1箱（500ml*24/箱）',
@@ -137,11 +132,10 @@ Mock.mock('/mock/shopList.do', 'post', (data)=>{
                 price:'1800',
                 orderPrice:'2360'
             },
-            ]
-    }
-    return list;
+            ]}
+
 })
-Mock.mock('/api/recommend.do','post',(data)=>{
+Mock.mock('/mock/recommend.do','post',(data)=>{
     let math=parseInt(Math.random()*2)
     if (JSON.parse(data.body).createTime&&math==0) {
         return {

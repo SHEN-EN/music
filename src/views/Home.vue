@@ -1,8 +1,17 @@
 <template>
   <div class="home">
+    <div class="dark" v-if="show"></div>
+    <div class="popup" v-if="show">
+        <div class="popup_img">
+          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup_title.png" alt="" :class="[{animation_bannerTitle:jump},'popup_img_bannerTitle']" :style="timeOut==0?'top:-56% !important':''">
+          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup.png" alt="" :class="[{animation:startShow},'popup_img_banner']">
+        </div>
+        <img src="../assets/guanbi.png" alt="" class="popup_close" @click="closePopup">
+        <div class="popup_tips"><span>{{timeOut}}</span>秒后自动关闭</div>
+    </div>
     <div class="header">
         <img src="../assets/gps.png" alt="" class="header_gps">
-        <span class="header_local">深圳技师学院</span>
+        <span class="header_local" @click="selectLocal">深圳技师学院</span>
         <img src="../assets/select.png" alt="" class="header_select">
         <img src="../assets/more.png" alt="" class="header_more">
         <img src="../assets/code.png" alt="" class="header_code">
@@ -13,11 +22,12 @@
         </div>
          <div class="banner" @click="toActivity">
           <nut-swiper
-            direction="horizontal"
-           :loop="true"
-           :lazyLoad="true"
-           :autoPlay="3000">
-           <img src="../assets/banns.png" alt="">
+          :paginationVisible="true"
+          direction="horizontal"
+          :loop="true"
+          :lazyLoad="true"
+          :autoPlay="3000">
+           <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/banns.png" alt="">
         </nut-swiper>
          </div>
     </div>
@@ -28,7 +38,7 @@
       </div>
     </div>
     <div class="advertisement">
-        
+        <img src="../assets/fuils.png" alt="" :class="[{ani:!show}]">
     </div>
     <div class="recommend_title">
         <span class="recommend_today">今日推荐</span>
@@ -106,7 +116,11 @@ export default {
           }
         ],//选项卡list
         type:'',
-        bottom:false
+        bottom:false,
+        show:true, //显示双十一广告动画
+        startShow:false,//显示dark
+        timeOut:3,//倒计时
+        jump:true, //跳动动画
     }
   },
   methods:{
@@ -149,7 +163,7 @@ export default {
         });
       },
       loadingMore(){
-         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight;
           if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
@@ -157,6 +171,9 @@ export default {
               this.pageNo=this.pageNo+6
               this.mockShopList(true,this.type!=''?this.type:'')    
             }
+      },
+      selectLocal(){
+          this.$toast.text('功能正在开发中');
       },
       changeInputValue(){
           this.inputArr=this.inputArr=='新鲜娃娃菜'?'脆脆鲨饼干巧克力味':'新鲜娃娃菜';
@@ -168,13 +185,15 @@ export default {
           this.shopList='' ; //清空LIST
           this.type=type;//获取type传后端
           window.addEventListener('scroll',this.loadingMore)
+          this.todayLoading(); //mock数据加载
           this.mockShopList(false,type)
       },
       todayLoading(){  //数据mock
         let params={
           createTime:+new Date()
         }
-        this.axios.post('/api/recommend.do',params).then((result) => {
+        this.axios.post('/mock/recommend.do',params).then((result) => {
+            this.todayList=[]
             this.todayList.push(...result.data.list);
         }).catch((err) => {
           
@@ -182,6 +201,9 @@ export default {
       },
       toActivity(){
         this.$router.push('/activity')
+      },
+      closePopup(){
+          this.show=false
       }
   },
   created () {
@@ -190,7 +212,17 @@ export default {
     this.todayLoading(); //mock数据加载
     setInterval(() => {
       this.changeInputValue();
-    }, 3000);
+    }, 2000);
+    let time=setInterval(() => {
+               this.timeOut--
+               if (this.timeOut<=0) {
+                   clearInterval(time)
+                   this.startShow=true;
+                   setTimeout(()=>{
+                     this.show=false
+                   },1300)           
+               }
+           }, 1000);
   },
   mounted() {
     window.addEventListener('scroll',this.loadingMore)
@@ -229,9 +261,93 @@ export default {
 }
 </style>
 <style scoped>
+.animation{
+    top: -2.2rem !important;
+    height: 1.85rem !important;
+    width: 3.6rem !important;
+    transform: scale(.98) !important;
+    border-radius: .1rem !important;
+}
+@keyframes bannerTitle {
+    0%{
+      opacity: 0;
+      top:-65%;
+    }
+    25%{
+      top: -60%;
+      opacity: .2;
+    }
+    75%{
+      top:-45%;
+      opacity: .5;
+    }
+    100%{
+      top:-38%;
+      opacity: 1; 
+    } 
+}
+.animation_bannerTitle{
+  animation: bannerTitle 1.5s linear;
+  top:-38% !important;
+  opacity: 1 !important;
+}
+.popup{
+  position: fixed;
+  z-index: 1000001;
+  font-size: .12rem;
+  color: #fff;
+}
+.popup .popup_tips{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  top: 72%;
+}
+.popup .popup_close{
+  height: .25rem;
+  width: .25rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 32%;
+
+}
+.popup .popup_img .popup_img_bannerTitle{
+    width: .7rem;
+    position: fixed;
+    left: 1rem;
+    top: -65%;
+    bottom: 0;
+    z-index: 2;
+    margin: auto;
+    opacity: 0;
+    transition: all 1s
+}
+.popup .popup_img .popup_img_banner{
+  width: 3.2rem;
+  height: 2rem;
+  border-radius: .2rem;
+  position: fixed;
+  top: -1rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  transition: all 1s
+}
+.dark{
+  background: #000;
+  opacity: .6;
+  position: fixed;
+  z-index: 100000;
+  height: 100%;
+  width: 100%;
+}
 .home{
   background: #fff;
-  /* font-family: PingFangSC; */
+  
 }
 .header{
   width: 100%;
@@ -355,6 +471,29 @@ export default {
   background: url('../assets/banner.png') no-repeat;
   background-size:100%;
 }
+.advertisement img{
+  width: 1.2rem;
+}
+.advertisement .ani{
+    animation: fuil 1s linear infinite;
+}
+@keyframes fuil {
+    0%{
+      transform: rotate(0deg);
+    }
+    25%{    
+      transform: rotate(2deg);
+    }
+    50%{
+      transform: rotate(4deg);        
+    }
+    75%{
+      transform: rotate(2deg);              
+    }
+    100%{
+      transform: rotate(0deg);                     
+    }
+}
 .recommend{
     height: 1.6rem;
     width: 100%;
@@ -393,7 +532,7 @@ export default {
   text-align: center;
   margin-top: -.18rem;
   margin-left: .15rem;
-} 
+}
 .shopList{
   background: #f2f2f2;
 }
@@ -410,7 +549,6 @@ export default {
   position: relative;
   overflow: hidden;
   width:auto;
-  line-height: .19rem;
 }
 .shopList .shopList_top .shopList_top_change{
   font-size: .09rem;
@@ -505,7 +643,10 @@ export default {
     overflow: hidden;
     color: #fff;
     text-align: center;
-    transition: all .5s
+    transition: all .5s;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 .bottom-tips{
     width: 100%;

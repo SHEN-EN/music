@@ -4,23 +4,24 @@
         <div class="guide_content" ref="box">
             <div class="guide_content_first" >
                 <span @click="jump">跳过</span>
-                <img src="../assets/logos.png" alt="" class="guide_content_first_logo">
-                <img src="../assets/logo_title.png" alt="" class="guide_content_first_title">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/yuan.png" alt="" class="guide_content_first_Bylogo">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/logos.png" alt="" class="guide_content_first_logo">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/logo_title.png" alt="" class="guide_content_first_title">
             </div>
             <div class="guide_content_second">
                 <span @click="jump">跳过</span>
-                <img src="../assets/second_logo.png" alt="" class="guide_content_second_logo">
-                <img src="../assets/second_title.png" alt="" class="guide_content_second_title">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/second_logo.png" alt="" class="guide_content_second_logo">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/second_title.png" alt="" class="guide_content_second_title">
             </div>
             <div class="guide_content_third">
                 <span @click="jump">跳过</span>
-                <img src="../assets/third_logo.png" alt="" class="guide_content_third_logo">
-                <img src="../assets/third_title.png" alt="" class="guide_content_third_title">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/third_logo.png" alt="" class="guide_content_third_logo">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/third_title.png" alt="" class="guide_content_third_title">
             </div>
             <div class="guide_content_fouth">
                 <span @click="jump">跳过</span>
-                <img src="../assets/fouth_logo.png" alt="" class="guide_content_fouth_logo">
-                <img src="../assets/fouth_title.png" alt="" class="guide_content_fouth_title">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/fouth_logo.png" alt="" class="guide_content_fouth_logo">
+                <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/fouth_title.png" alt="" class="guide_content_fouth_title">
             </div>
         </div>
         </v-touch>
@@ -112,14 +113,20 @@ export default {
 
         .guide_content_first_logo
             width  38%
-            height 15%
+            height 12%
             position: absolute;
             left: 0;
             top: -1.4rem;
             bottom: 0;
             right: 0;
             margin: auto;
-
+        .guide_content_first_Bylogo
+            @extend  .guide_content_first_logo
+            width 3%
+            height 3%
+            left -33%
+            bottom 5%
+            animation jump 2s linear infinite
         .guide_content_first_title
             @extend .guide_content_first_logo
             width: 48%;
@@ -204,4 +211,27 @@ export default {
             background #17b447
             width .15rem
             transition all .5s
+@keyframes jump {
+    0%{
+        bottom 5%
+        transform  scale(.9);
+    }
+    25%{
+        bottom 10%
+        transform  scale(1.1);
+        opacity .5
+    }
+    50%{
+        bottom 20%
+        transform  scale(1.2);
+        opacity 0
+    }
+    75%{
+        bottom 10%
+        opacity 0
+    }
+    100%{
+        bottom 5%
+    }
+}  
 </style>
