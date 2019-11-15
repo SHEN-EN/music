@@ -122,8 +122,8 @@ export default {
             margin: auto;
         .guide_content_first_Bylogo
             @extend  .guide_content_first_logo
-            width 3%
-            height 3%
+            width 2.5%
+            height 2%
             left -33%
             bottom 5%
             animation jump 2s linear infinite
@@ -219,7 +219,7 @@ export default {
     25%{
         bottom 10%
         transform  scale(1.1);
-        opacity .5
+        opacity .8
     }
     50%{
         bottom 20%

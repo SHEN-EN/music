@@ -3,8 +3,8 @@
     <div class="dark" v-if="show"></div>
     <div class="popup" v-if="show">
         <div class="popup_img">
-          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup_title.png" alt="" :class="[{animation_bannerTitle:jump},'popup_img_bannerTitle']" :style="timeOut==0?'top:-56% !important':''">
-          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup.png" alt="" :class="[{animation:startShow},'popup_img_banner']">
+          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup_title.png" alt="" :class="[{animation_bannerTitle:jump},'popup_img_bannerTitle']">
+          <img src="https://shen-1259805780.cos.ap-chengdu.myqcloud.com/SHOP/popup.png" alt="" class='popup_img_banner'>
         </div>
         <img src="../assets/guanbi.png" alt="" class="popup_close" @click="closePopup">
         <div class="popup_tips"><span>{{timeOut}}</span>秒后自动关闭</div>
@@ -14,7 +14,7 @@
         <span class="header_local" @click="selectLocal">深圳技师学院</span>
         <img src="../assets/select.png" alt="" class="header_select">
         <img src="../assets/more.png" alt="" class="header_more">
-        <img src="../assets/code.png" alt="" class="header_code">
+        <img src="../assets/code.png" alt="" class="header_code" @click="localstorageClear">
         <div class="header_seach">
             <img src="../assets/seach.png" alt="">
             <input type="text" class="header_seach_input" :placeholder="inputArr" >
@@ -66,13 +66,17 @@
     <div class="bottom-tips" v-show="bottom">
         <span class="tips-txt">哎呀，这里是底部了啦</span>
     </div>
-    <nut-backtop :distance="400" :bottom="156.5" :right="8"></nut-backtop>
+    <div :class="[{cook_imgTraisition:cookShowFlag},'cook']" @click="toActivity">
+      <span v-for="(item,index) in cook" :key="index">{{item}}</span>
+    </div>
+    <nut-backtop :distance="400" :bottom="70.5" :right="8"></nut-backtop>
     <footer-curry></footer-curry>
   </div>
 </template>
 <script>
 import footer from '../components/footer';
-import {priceFilter} from '../fillter/fillter'
+import {priceFilter} from '../fillter/fillter';
+import {TimeDown} from '../common/common'
 export default {
   components: {
     'footer-curry':footer
@@ -121,6 +125,9 @@ export default {
         startShow:false,//显示dark
         timeOut:3,//倒计时
         jump:true, //跳动动画
+        cook:[1,2,3,4],//倒计时
+        cookShow:0,//倒计时的显示隐藏高度
+        cookShowFlag:true,//
     }
   },
   methods:{
@@ -134,6 +141,9 @@ export default {
           
         });
       },
+      localstorageClear(){
+        localStorage.clear()
+      },
       mockShopList(loading,type){  //精选商品列表
         let params={
           pageNo:this.pageNo,
@@ -144,7 +154,6 @@ export default {
               if (loading) { //下拉加载 
                 this.loading.hide();
                 if (result.data.query.length==0) {
-                  window.removeEventListener('scroll',this.loadingMore)
                   this.$toast.text('数据加载完毕');
                   this.bottom=true
                 }else{
@@ -166,6 +175,15 @@ export default {
           let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
           let clientHeight = document.documentElement.clientHeight;
           let scrollHeight = document.documentElement.scrollHeight;
+          if (scrollTop>this.cookShow) {
+              this.cookShow=scrollTop
+              this.cookShowFlag=true
+          }else if (scrollTop==0) {
+              this.cookShow=0
+              this.cookShowFlag=false
+          }else{
+              this.cookShowFlag=false
+          }
           if (scrollTop + clientHeight >= scrollHeight) { // 如果滚动到接近底部，自动加载下一页
               this.loading = this.$toast.loading();
               this.pageNo=this.pageNo+6
@@ -207,22 +225,32 @@ export default {
       }
   },
   created () {
+
+    setInterval(()=>{
+      let time=  TimeDown('2019-11-14 00:00:00');
+      this.cook=time.join('').split('')
+    }, 1000)
     this.mockList();//mock数据加载
     this.mockShopList(); //真实数据加载
     this.todayLoading(); //mock数据加载
     setInterval(() => {
       this.changeInputValue();
     }, 2000);
-    let time=setInterval(() => {
-               this.timeOut--
-               if (this.timeOut<=0) {
-                   clearInterval(time)
-                   this.startShow=true;
-                   setTimeout(()=>{
-                     this.show=false
-                   },1300)           
-               }
-           }, 1000);
+    if (!localStorage.getItem('flag')) {
+      let time=setInterval(() => {
+                 this.timeOut--
+                 if (this.timeOut<=0) {
+                     clearInterval(time)
+                     this.startShow=true;
+                     localStorage.setItem('flag',true)
+                     setTimeout(()=>{
+                       this.show=false
+                     },1300)           
+                 }
+             }, 1000);
+    }else{
+        this.show=false
+    }
   },
   mounted() {
     window.addEventListener('scroll',this.loadingMore)
@@ -286,9 +314,45 @@ export default {
       opacity: 1; 
     } 
 }
+.cook{
+  width: 1rem;
+  height: .75rem;
+  position: fixed;
+  right: 0;
+  bottom: 32%;
+  transition: all .5s;
+  background: url('../assets/cook.png') no-repeat;
+  background-size: 100%;
+}
+.cook_imgTraisition{
+  transform: translate(60%,0)
+}
+.cook span{
+  font-size: .1rem;
+  color: #ae391f;
+  position: absolute;
+  bottom: .14rem;
+}
+.cook span:nth-of-type(1){
+  left: .44rem;
+}
+.cook span:nth-of-type(2){
+  left: .52rem;
+}
+.cook span:nth-of-type(3){
+  left: .64rem;
+}
+.cook span:nth-of-type(4){
+  left: .72rem;
+}
+.cook span:nth-of-type(5){
+  left: .83rem;
+}.cook span:nth-of-type(6){
+  left: .91rem;
+}
 .animation_bannerTitle{
   animation: bannerTitle 1.5s linear;
-  top:-38% !important;
+  top:-33% !important;
   opacity: 1 !important;
 }
 .popup{
