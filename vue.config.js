@@ -5,9 +5,9 @@ module.exports = {
     outputDir: 'dist',
     devServer: {
         proxy: {
-            '/api': {
-                target: 'http://129.204.154.119:3000/api',
-                ws: true,
+            '/': {
+                target: 'http://localhost:3000',
+                ws: false,
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
