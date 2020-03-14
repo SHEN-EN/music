@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {Login} from '../../api/api'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -53,6 +53,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+        'LoginToGetInf':'LoginToGetInf'
+    }),
       focusfns(e){
           if(e.target.type == 'tel'){
               this.fouce=true
@@ -63,25 +66,25 @@ export default {
       blurfns(){
           this.fouce=false
       },
-      tryToLogin(e){
-          let params={
-              phone:this.tel,
-              password:this.password
-          }
-          Login(params).then((res)=>{
-              if (res.data.code == 200) {
-                    this.$router.push('/Home')
-              }else{
-                e.preventDefault();
-                alert(res.data.message);
-              }
-          }).catch((err)=>{
-
-          })
+     async tryToLogin(e){
+        let params={
+            phone:this.tel,
+            password:this.password
+        }  
+        let res =  await this.LoginToGetInf(params);
+            if (res.code == 200) {
+                this.$router.push('/Home')
+            }else{
+                e.preventDefault(); //禁止表单刷新
+                alert(res.msg)
+            }   
       }
   },
   created() {
-      console.log(this.$store)
+      console.log()
+  },
+  computed: {
+ 
   },
 };
 </script>
