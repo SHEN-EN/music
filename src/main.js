@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/store'
 import axios from 'axios'
 // import VueAxios from 'vue-axios'
 import NutUI from '@nutui/nutui';
@@ -16,7 +16,6 @@ Object.keys(filter).forEach((key)=>{Vue.filter(key, filter[key])})
 Vue.config.productionTip = false
 axios.interceptors.request.use(
   config=>{
-    console.log(config)
     return config
   }
 );

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <header-seach></header-seach>
+    <header-seach :offsetTop="scrollTop"></header-seach>
     <HomeSwiper></HomeSwiper>
     <HomeRecommend></HomeRecommend>
     <HomeSingRecommend></HomeSingRecommend>
@@ -27,17 +27,23 @@ export default {
   },
   data () {
     return {
-      
+      scrollTop:'',
     }
   },
   methods: {
-    
+    scroll(){
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      this.scrollTop = scrollTop
+    }
   },
  created() {
-   
+   window.addEventListener('scroll',this.scroll)
  },
   mounted() {
     
+  },
+  beforeDestroy() {
+     window.removeEventListener("scroll", this.scroll);
   },
 }
 </script>

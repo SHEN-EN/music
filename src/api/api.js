@@ -5,3 +5,6 @@ export  const homeBanner = (params) =>{
 export  const homeRecommend = (params) =>{
     return axios.get("/personalized",params); 
 }
+export  const Login = (params) =>{
+    return axios.post("/login/cellphone",params); 
+}

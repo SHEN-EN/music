@@ -1,6 +1,6 @@
 
 <template>
-  <div class="seach-header">
+  <div class="seach-header" :style="setTop>=30 ? 'height:.5rem;z-index:10000': ''">
     <img src="../assets/logo.jpg" alt="" class="seach-header-logo">
     <input type="text">
     <img src="../assets/logo.jpg" alt="" class="seach-header-musicImg">
@@ -11,16 +11,22 @@
 
 
 export default {
+  props:['offsetTop'],
   data() {
     return {
-     
+     setTop:''
     };
   },
   methods: {
     
   },
   mounted() {
-   
+   console.log(this.$props.offsetTop)
+  },
+  watch: {
+    offsetTop(newVal,oldVal){
+      this.setTop = newVal
+    }
   },
 };
 </script>
