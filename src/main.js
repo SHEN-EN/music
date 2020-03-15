@@ -12,16 +12,23 @@ Vue.config.productionTip = false
 axios.interceptors.request.use(config=>{ // 请求响应拦截器
     return config
 });
-
+axios.interceptors.response.use(response =>{
+  const res = response.data.code 
+  if (response.data.code == 301) {
+    alert('用户登陆凭证过期导致部分功能不能使用,请尽快重新登陆！！'); 
+  }else{
+    return response
+  }
+})
 router.beforeEach((to, from, next) => {
-  console.log(store)
-      if(store.getters.userToken && document.cookie.split(';')[0]!=''){
-        next()
-      }else{
-        alert('用户登陆凭证过期导致部分功能不能使用,请尽快重新登陆！！');
-        next()  
-      }
-
+      next()
+      // if(store.getters.userToken && document.cookie.split(';')[0]!=''){
+      //    next()
+      // }else if(to.name!='Login'){
+      //   next('/Login') 
+      // }else{
+      //   next()
+      // }
 })
 new Vue({
   router,

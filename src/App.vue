@@ -20,4 +20,7 @@ html body{
   text-decoration: none;
   color:#989898;
 }
+a{
+  text-decoration: none;
+}
 </style>

@@ -62,11 +62,15 @@ img[lazy="loading"] {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top:0;
   .songlist-item {
     position: relative;
     width: 30%;
     margin-top: .05rem;
     margin-left:.05rem;
+    a{
+      text-decoration:none;
+    }
     .img-wrap {
       border-radius: 0.02rem;
       overflow: hidden;

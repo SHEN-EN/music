@@ -41,6 +41,7 @@ export default {};
   .four-circles {
     display: flex;
     justify-content: space-around;
+    margin:0;
     .circle-item {
       .circle-box {
         margin: 0.05rem auto;

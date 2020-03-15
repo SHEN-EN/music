@@ -5,14 +5,12 @@
     <HomeRecommend></HomeRecommend>
     <HomeSingRecommend></HomeSingRecommend>
     <footer-curry></footer-curry>
-    <!-- <img src="../../assets/1jpg.jpg" alt=""> -->
   </div>
 </template>
 <script>
 import HomeRecommend from './HomeRecommend'
 import HomeSwiper from './HomeSwiper'
 import HomeSingRecommend from './HomeSingRecommend'
-
 import headerSeach from '../../components/header'
 import footerCurry from '../../components/footer'
 
@@ -48,6 +46,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='less'>
 
 </style>

@@ -1,7 +1,9 @@
 <template>
   <section class="login-wrap">
     <div class="login-wrap-head">
+      <router-link to="/">
         <i class="iconfont icon-back"></i>
+      </router-link>
         <div>手机号码登陆</div>  
     </div>
     <form action @submit="tryToLogin" >
@@ -74,7 +76,7 @@ export default {
         e.preventDefault(); //禁止表单刷新     
         let res =  await this.LoginToGetInf(params);
             if (res.code == 200) {
-                this.$router.push('/Home')
+                this.$router.push('/')
             }else{
                 alert(res.msg)
             }

@@ -7,10 +7,10 @@
       <router-link :to="item.url || '#'" v-for="(item,index) in swiperMap" :key="index">
         <img :src="item.imageUrl" alt="">
       </router-link>
+    </div>
       <div class="swiper-item">
         <span v-for="(item,index) in swiperMap" :key="index" :style="nowLeft==index*-98?'background: #cb3c35;opacity:1':''"></span>
       </div>
-    </div>
     </v-touch>
     </div>
 
@@ -93,8 +93,8 @@ export default {
   .swiper-item{
     width: 100%;
     height: 10px;
-    position: fixed;
-    top: 1.9rem;
+    position: absolute;
+    bottom: .05rem;
     z-index: 9999;
     left: 0;
     display: flex;
