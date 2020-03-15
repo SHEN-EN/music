@@ -29,10 +29,7 @@ export default {
   },
   methods: {
     banner(){
-      let params={
-        type:2
-      }
-      homeBanner(params).then((res)=>{
+      homeBanner(2).then((res)=>{
         if(res.data.code == 200){
             this.swiperMap=res.data.banners;
         }

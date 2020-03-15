@@ -9,7 +9,7 @@
       <div class="img-wrap">
         <img  src="http://p3.music.126.net/wBQKaxSizeVeLU6Rasp2Rg==/109951164777165332.jpg?param=200y200" class="cover-img">
       </div>
-      <h1 class="play-list-title">适合写作的歌曲</h1>
+      <h1 class="play-list-title">{{list.name}}</h1>
       <p class="play-list-update-time">最近更新：</p>
     </section>
     <section class="play-list-detail-bottom">
@@ -20,7 +20,7 @@
         </div>
         <div class="star-me">+ 收藏</div>
       </div>
-    <song-list></song-list>
+    <song-list ref="infList"></song-list>
     </section>
   </section>
 </template>
@@ -33,15 +33,28 @@ export default {
     },
   data() {
     return {
-     
+        list:''
     };
   },
   methods: {
-
+      
   },
   created() {
-    
-  }
+
+  },
+  computed: {
+ 
+  },
+  mounted() {
+       this.$nextTick(function(){
+           this.list = this.$refs.infList.list
+           console.log(this.$refs.infList.list) 
+           console.log(this.list = this.$refs.infList.list)
+      }) 
+  },
+  watch: {
+     
+  },
 };
 </script>
 

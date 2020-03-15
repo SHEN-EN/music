@@ -1,14 +1,14 @@
 <template>
   <ul class="track-list">
-    <li class="track-item" v-for="(item, index) in 6" :key="index">
+    <li class="track-item" v-for="(item, index) in playlist" :key="index">
       <router-link
         to="/"
         class="link-to-play-control"
       >
-        <div class="track-rank">{{index}}</div>
+        <div class="track-rank">{{index+1}}</div>
         <div class="track-info">
-          <p class="track-title ellipsis">情绪</p>
-          <p class="track-desc ellipsis">作者 - 情绪</p>
+          <p class="track-title ellipsis">{{item.name}}</p>
+          <p class="track-desc ellipsis">{{item.ar[0].name}} - {{item.name}}</p>
         </div>
       </router-link>
     </li>
@@ -17,10 +17,41 @@
 
 <script>
 
-
+import {playlist} from '../api/api'
 export default {
+  data() {
+    return {
+      playlist:'',
+      list:{}
+    }
+  },
   methods: {
-    
+    getListDetail(val){
+          playlist(val).then(res=>{
+            if (res.data.code == 200 ) {
+              this.playlist = res.data.playlist.tracks;
+              this.list.name=res.data.playlist.name;
+              this.list.commentCount=res.data.playlist.commentCount;
+              this.list.backgroundCoverUrl=res.data.playlist.coverImgUrl;
+              this.list.playCount=res.data.playlist.playCount;
+              console.log(this.list)
+            }
+          }).catch(err=>{
+            console.log(err)
+          })
+      }
+  },
+  created() {
+    console.log(this.$route.query.id)
+    this.getListDetail(this.$route.query.id)
+  },
+  watch: {
+    list:{
+      handler:function(newVal,oldVal){
+        console.log(newVal)
+      },
+      deep:true
+    }
   },
 };
 </script>

@@ -4,7 +4,7 @@
     <h1 class="recom-songlist-header">推荐歌单</h1>
     <ul class="songlist-group">
       <li v-for="(item, index) in musicList" :key="index" class="songlist-item" v-if="index<6">
-        <router-link to="">
+        <router-link :to="{path:'/playList',query:{id:item.id}}">
           <div class="img-wrap">
             <img  alt class="songlist-cover" :src="item.picUrl">
             <div class="play-count-box">
