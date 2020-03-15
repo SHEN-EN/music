@@ -70,14 +70,14 @@ export default {
         let params={
             phone:this.tel,
             password:this.password
-        }  
+        }
+        e.preventDefault(); //禁止表单刷新     
         let res =  await this.LoginToGetInf(params);
             if (res.code == 200) {
                 this.$router.push('/Home')
             }else{
-                e.preventDefault(); //禁止表单刷新
                 alert(res.msg)
-            }   
+            }
       }
   },
   created() {

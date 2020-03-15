@@ -2,9 +2,9 @@ import {Login} from '../../api/api'
 import {setLocalstorage} from '../../util/util'
 const login = {
     state:{
-        userToken:'' || localStorage.getItem('token'), //用户token
-        profile: '' || localStorage.getItem('profile'), // 用户信息
-        bindings: '' || localStorage.getItem('bindings'), // 用户信息
+        userToken:'' || JSON.parse(localStorage.getItem('userToken')), //用户token
+        profile: '' || JSON.parse(localStorage.getItem('profile')), // 用户信息
+        bindings: '' || JSON.parse(localStorage.getItem('bindings')), // 用户信息
     },
     mutations:{
         SET_USERTOKEN(state,token){
