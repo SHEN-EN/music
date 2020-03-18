@@ -2,7 +2,7 @@
   <ul class="track-list">
     <li class="track-item" v-for="(item, index) in playlist" :key="index">
       <router-link
-        to="/"
+        :to="{path:'/songControl',query:{'title':item.name,'songName':item.ar[0].name,'tracksId':tracksId[index].id,'backgroundCoverUrl':item.al.picUrl}}"
         class="link-to-play-control"
       >
         <div class="track-rank">{{index+1}}</div>
@@ -22,7 +22,10 @@ export default {
   data() {
     return {
       playlist:'',
-      list:{}
+      list:{
+      
+      },
+      tracksId:''
     }
   },
   methods: {
@@ -30,11 +33,11 @@ export default {
           playlist(val).then(res=>{
             if (res.data.code == 200 ) {
               this.playlist = res.data.playlist.tracks;
-              this.list.name=res.data.playlist.name;
+              this.tracksId = res.data.playlist.trackIds;
               this.list.commentCount=res.data.playlist.commentCount;
               this.list.backgroundCoverUrl=res.data.playlist.coverImgUrl;
-              this.list.playCount=res.data.playlist.playCount;
-              console.log(this.list)
+              this.list.playCount=res.data.playlist.tracks.length;
+              this.$emit('getList',this.list);
             }
           }).catch(err=>{
             console.log(err)

@@ -7,20 +7,18 @@
     </div>
     <section class="play-list-detail-top" ref="playListDesc">
       <div class="img-wrap">
-        <img  src="http://p3.music.126.net/wBQKaxSizeVeLU6Rasp2Rg==/109951164777165332.jpg?param=200y200" class="cover-img">
+        <img  :src="list.backgroundCoverUrl" class="cover-img">
       </div>
-      <h1 class="play-list-title">{{list.name}}</h1>
-      <p class="play-list-update-time">最近更新：</p>
     </section>
     <section class="play-list-detail-bottom">
       <div class="play-list-control">
         <div class="play-all">
           <i class="iconfont icon-bofang"></i>
-          <span>播放全部（共首）</span>
+          <span>播放全部（{{list.playCount}}共首）</span>
         </div>
-        <div class="star-me">+ 收藏</div>
+        <div class="star-me">+收藏 {{list.commentCount}}</div>
       </div>
-    <song-list ref="infList"></song-list>
+    <song-list ref="infList" @getList="getList"></song-list>
     </section>
   </section>
 </template>
@@ -37,7 +35,9 @@ export default {
     };
   },
   methods: {
-      
+      getList(val){
+          this.list = val
+      }
   },
   created() {
 
@@ -46,13 +46,10 @@ export default {
  
   },
   mounted() {
-       this.$nextTick(function(){
-           this.list = this.$refs.infList.list
-           console.log(this.$refs.infList.list) 
-           console.log(this.list = this.$refs.infList.list)
-      }) 
+    
   },
   watch: {
+
      
   },
 };
@@ -85,7 +82,7 @@ img {
 .play-list-detail-top {
   position: relative;
   .img-wrap {
-    height: 2.8rem;
+ 
     overflow: hidden;
     .cover-img {
       width: 100%;
@@ -98,6 +95,7 @@ img {
     left: 10%;
     font-size: 0.3rem;
     color: #fff;
+    font-size: .18rem;
   }
   .play-list-update-time {
     position: absolute;

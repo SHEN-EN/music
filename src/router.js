@@ -21,5 +21,10 @@ export default new Router({
       name: 'playList',
       component: () => import( './views/playList/playList.vue')
     },
+    {
+      path: '/songControl',
+      name: 'songControl',
+      component: () => import( './views/songControl/songControl.vue')
+    },
   ]
 })
