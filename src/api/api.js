@@ -14,3 +14,6 @@ export  const playlist = (params) =>{
 export  const songUrl = (params) =>{
     return axios.post("/song/url",params); 
 }
+export  const songlyric = (params) =>{
+    return axios.get(`/lyric?id=${params}`);  
+}

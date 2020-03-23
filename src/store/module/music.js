@@ -1,4 +1,5 @@
-import { songUrl } from '../../api/api'
+import { songUrl,songlyric } from '../../api/api'
+import store from '../store';
 const music = {
     state:{
 
@@ -10,6 +11,11 @@ const music = {
        async getSongUrl({commit},data){
             let res = await songUrl(data);
             return res;
+        },
+      async getSonglyric({commit},data){
+            let res= await songlyric(data);
+            return res;
+
         }
     }
 }

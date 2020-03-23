@@ -7,7 +7,7 @@
       </div>
     </header>
     <section class="main">
-      <div class="cover-img-box">
+      <div class="cover-img-box" @click="toDisplay" ref="cover">
         <div :class="['img-wrap',stop.play?'rotate':'']" ref="rotateCD">
           <img alt class="cover-img" :src="$route.query.backgroundCoverUrl">
         </div>
@@ -53,7 +53,8 @@ export default {
         stop:{
             icon:'icon-bofang1',
             play:true
-        }
+        },
+        Songlyric:''
     };
   },
   computed: {
@@ -64,32 +65,36 @@ export default {
   },
   methods: {
       ...mapActions({
-          'getSongUrl':'getSongUrl'
+          'getSongUrl':'getSongUrl',
+          'getSonglyric' : 'getSonglyric'
       }),
       setHeight(){
           this.$refs.pageWrap.style.height = `${document.documentElement.clientHeight}px`
       },
-      getSong(tracksId){
+    async getSong(tracksId){
           let params={
               id:tracksId
           }
-          this.getSongUrl(params).then((result) => {
-              this.audioSrc = result.data.data[0].url;
-
-          }).catch((err) => {
-              
-          });
+        let result = await  this.getSongUrl(params);
+        this.audioSrc =  result.data.data[0].url;
+        this.getSonglyric(result.data.data[0].id).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        });
       },
       stopSong(){
-            this.$refs.rotateCD.style.transform=getComputedStyle(this.$refs.rotateCD).getPropertyValue("transform")
+          this.$refs.rotateCD.style.transform=getComputedStyle(this.$refs.rotateCD).getPropertyValue("transform")
           if (this.stop.icon == 'icon-bofang1') {
               this.stop.icon = 'icon-bofang2'
               this.stop.play = false
           }else{
               this.stop.icon = 'icon-bofang1'
               this.stop.play = true
-
           }
+      },
+      toDisplay(){
+        this.$refs.cover.style.opacity= '0';
       }
   },
   watch: {
@@ -168,6 +173,7 @@ img[lazy="loading"] {
       background-color: #2e3030;
       border-radius: 50%;
       overflow: hidden;
+      transition: all .5s;
       .img-wrap {
         width: 70%;
         height: 70%; // 设置高度以让子元素宽高相同

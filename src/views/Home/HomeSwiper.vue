@@ -5,11 +5,11 @@
     <v-touch  v-on:swipeleft="swiperleft" v-on:swiperight="swiperright">
     <div class="swiper-box" ref="swiper" :style="`width:${swiperMap.length*100}%`">
       <router-link :to="item.url || '#'" v-for="(item,index) in swiperMap" :key="index">
-        <img :src="item.imageUrl" alt="">
+        <img :src="item.pic" alt="">
       </router-link>
     </div>
       <div class="swiper-item">
-        <span v-for="(item,index) in swiperMap" :key="index" :style="nowLeft==index*-98?'background: #cb3c35;opacity:1':''"></span>
+        <span v-for="(item,index) in swiperMap" :key="index" :style="nowLeft==index*-99?'background: #cb3c35;opacity:1':''"></span>
       </div>
     </v-touch>
     </div>
@@ -39,18 +39,18 @@ export default {
     },
     scrollBanner(){
       let  nowLeft = this.$refs.swiper.style.left.split('%')[0] || 0  //分割百分比取整数 typeof == arr
-      this.nowLeft = nowLeft-98 // 存储left值的时候偏差98因为第一次的小圆点位置是-98%
-      if( nowLeft <= 0 && nowLeft > -98*(this.swiperMap.length-1)){ 
-        this.$refs.swiper.style.left = `${nowLeft-98}%`
-      }else if(nowLeft <= -98*(this.swiperMap.length-1)){
+      this.nowLeft = nowLeft-99 // 存储left值的时候偏差98因为第一次的小圆点位置是-98%
+      if( nowLeft <= 0 && nowLeft > -99*(this.swiperMap.length-1)){ 
+        this.$refs.swiper.style.left = `${nowLeft-99}%`
+      }else if(nowLeft <= -99*(this.swiperMap.length-1)){
         this.$refs.swiper.style.left = "0%"
       }
     },
     swiperleft(){
-      if(this.nowLeft<=0 && this.nowLeft > -98*(this.swiperMap.length-1)){
-         this.$refs.swiper.style.left = `${this.nowLeft-98}%`;
+      if(this.nowLeft<=0 && this.nowLeft > -99*(this.swiperMap.length-1)){
+         this.$refs.swiper.style.left = `${this.nowLeft-99}%`;
          this.nowLeft = this.$refs.swiper.style.left
-      }else if(this.nowLeft <= -98*(this.swiperMap.length-1)){
+      }else if(this.nowLeft <= -99*(this.swiperMap.length-1)){
         this.$refs.swiper.style.left = "0%"
       }
     },
@@ -81,7 +81,7 @@ export default {
     transition: all .5s;
     left: 0;
     img{
-      width: 10%;
+      width: 3.4rem;
       border-radius: 0.1rem;
       margin-right: .3rem;
       height: 1.5rem;
