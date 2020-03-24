@@ -6,12 +6,15 @@
         <p class="singers ellipsis">{{$route.query.songName}}</p>
       </div>
     </header>
-    <section class="main">
+    <section class="main" ref="main">
       <div class="cover-img-box" @click="toDisplay" ref="cover">
         <div :class="['img-wrap',stop.play?'rotate':'']" ref="rotateCD">
           <img alt class="cover-img" :src="$route.query.backgroundCoverUrl">
         </div>
       </div>
+      <div class="song" ref="song">
+        <p v-for="(item,index) in Songlyric" :key="index">{{item.txt}}</p>
+      </div> 
     </section>
     <section class="play-control-footer">
       <div class="progress-wrap">
@@ -44,7 +47,7 @@
 </template>
 
 <script>
-
+import Lyric from 'lyric-parser'
 import {mapActions} from 'vuex'
 export default {
   data() {
@@ -54,7 +57,7 @@ export default {
             icon:'icon-bofang1',
             play:true
         },
-        Songlyric:''
+        Songlyric:'',
     };
   },
   computed: {
@@ -78,7 +81,7 @@ export default {
         let result = await  this.getSongUrl(params);
         this.audioSrc =  result.data.data[0].url;
         this.getSonglyric(result.data.data[0].id).then((res) => {
-            console.log(res)
+            this.Songlyric= new Lyric(res.data.lrc.lyric).lines;  
         }).catch((err) => {
             console.log(err)
         });
@@ -94,7 +97,9 @@ export default {
           }
       },
       toDisplay(){
-        this.$refs.cover.style.opacity= '0';
+        this.$refs.cover.style.zIndex= '-1';
+        this.$refs.main.style.overflowY = 'scroll';
+        this.$refs.song.style.display = 'block';
       }
   },
   watch: {
@@ -164,9 +169,8 @@ img[lazy="loading"] {
   .main {
     height: 72%;
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    font-size: .18rem;
+    z-index: 2;
     .cover-img-box {
       width: 80vw;
       height: 80vw;
@@ -174,6 +178,12 @@ img[lazy="loading"] {
       border-radius: 50%;
       overflow: hidden;
       transition: all .5s;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
       .img-wrap {
         width: 70%;
         height: 70%; // 设置高度以让子元素宽高相同
@@ -185,6 +195,12 @@ img[lazy="loading"] {
           height: 100%; // 不设置高在某些情况下会有BUG
         }
       }
+    }
+    .song{
+      text-align: center;
+      margin-top: .5rem;
+      display: none;
+      color:#fff;
     }
   }
   // 固定定位应该有问题，那要如何设置呢？

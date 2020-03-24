@@ -10,6 +10,7 @@
     "@nutui/nutui": "^2.1.5",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "lyric-parser": "^1.0.1",
     "mockjs": "^1.0.1-beta3",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
